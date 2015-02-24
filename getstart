@@ -58,6 +58,27 @@ install_zsh() {
     esac
 }
 
+install_packages_in_debian_based() {
+    echo "deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" \
+        | sudo tee /etc/apt/sources.list.d/ > /dev/null
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 835AB0E3
+
+    sudo apt-get -q update
+    sudo apt-get install -y gcin git-cola cscope ctags gawk build-essential vim parcellite terminator
+}
+
+install_packages() {
+    echo "install zsh"
+    case $ID in
+        ubuntu|debian|raspbian)
+            install_packages_in_debian_based
+            ;;
+        arch)
+            echo "Not implemented."
+            ;;
+    esac
+}
+
 # Main
 cd $HOME
 
@@ -78,10 +99,13 @@ if [ -d $OH_MY_HOME ]; then
     ln -s $OH_MY_HOME/zshrc $HOME/.zshrc
 
     git clone https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh
-
-    echo "done.  You need to re-open terminal to activate."
 else
     echo "Install failed."
+    exit -1
 fi
+
+install_packages
+
+echo "done.  You need to re-open terminal to activate."
 
 exit 0

@@ -2,26 +2,26 @@
 
 # Detects which OS and if it is Linux then it will detect which Linux Distribution.
 if [ -e /etc/os-release ]; then
-    source /etc/os-release
+    . /etc/os-release
 else
     echo "Unknown Distribution."
     exit -1
 fi
 
-function install_git_in_debian_based() {
+install_git_in_debian_based() {
     status=$(dpkg-query -W -f='${Status}\n' git)
     if [ "$status" == "install ok installed"]; then
         echo "git is installed."
     else
-        sudo apt-get install git
+        sudo apt-get install -y git
     fi
 }
 
-function install_git_in_arch() {
+install_git_in_arch() {
     sudo pacman -Syu git
 }
 
-function install_git() {
+install_git() {
     echo "install git"
     case $ID in
         ubuntu|debian|raspbian)
@@ -33,20 +33,20 @@ function install_git() {
     esac
 }
 
-function install_zsh_in_debian_based() {
+install_zsh_in_debian_based() {
     status=$(dpkg-query -W -f='${Status}\n' zsh)
     if [ "$status" == "install ok installed"]; then
         echo "zsh is installed."
     else
-        sudo apt-get install zsh
+        sudo apt-get install -y zsh
     fi
 }
 
-function install_zsh_in_arch() {
+install_zsh_in_arch() {
     sudo pacman -Syu zsh
 }
 
-function install_zsh() {
+install_zsh() {
     echo "install zsh"
     case $ID in
         ubuntu|debian|raspbian)

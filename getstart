@@ -33,12 +33,41 @@ function install_git() {
     esac
 }
 
+function install_zsh_in_debian_based() {
+    status=$(dpkg-query -W -f='${Status}\n' zsh)
+    if [ "$status" == "install ok installed"]; then
+        echo "zsh is installed."
+    else
+        sudo apt-get install zsh
+    fi
+}
+
+function install_zsh_in_arch() {
+    sudo pacman -Syu zsh
+}
+
+function install_zsh() {
+    echo "install zsh"
+    case $ID in
+        ubuntu|debian|raspbian)
+            install_zsh_in_debian_based
+            ;;
+        arch)
+            install_zsh_in_arch
+            ;;
+    esac
+}
+
 # Main
 cd $HOME
 
 GIT=$(which git)
 if [ -z "$GIT" ]; then
     install_git
+fi
+ZSH=$(which zsh)
+if [ -z "$ZSH" ]; then
+    install_zsh
 fi
 
 git clone git@github.com:elleryq/oh-my-home.git .oh-my-home

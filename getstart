@@ -58,6 +58,10 @@ install_zsh() {
     esac
 }
 
+install_pyenv() {
+    git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+}
+
 install_packages_in_debian_based() {
     echo "deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" \
         | sudo tee /etc/apt/sources.list.d/ > /dev/null
@@ -104,6 +108,7 @@ else
     exit -1
 fi
 
+install_pyenv
 install_packages
 
 echo "done.  You need to re-open terminal to activate."

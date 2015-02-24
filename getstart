@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# Detects which OS and if it is Linux then it will detect which Linux Distribution.
+if [ -e /etc/os-release ]; then
+    source /etc/os-release
+else
+    echo "Unknown Distribution."
+    exit -1
+fi
+
+function install_git_in_debian_based() {
+    status=$(dpkg-query -W -f='${Status}\n' git)
+    if [ "$status" == "install ok installed"]; then
+        echo "git is installed."
+    else
+        sudo apt-get install git
+    fi
+}
+
+function install_git_in_arch() {
+    sudo pacman -Syu git
+}
+
+function install_git() {
+    echo "install git"
+    case $ID in
+        ubuntu|debian|raspbian)
+            install_git_in_debian_based
+            ;;
+        arch)
+            install_git_in_arch
+            ;;
+    esac
+}
+
+# Main
+cd $HOME
+
+GIT=$(which git)
+if [ -z "$GIT" ]; then
+    install_git
+fi
+
+git clone git@github.com:elleryq/oh-my-home.git .oh-my-home
+
+OH_MY_HOME=$HOME/.oh-my-home
+if [ -d $OH_MY_HOME ]; then
+    ln -s $OH_MY_HOME/zshenv $HOME/.zshenv
+    ln -s $OH_MY_HOME/zshrc $HOME/.zshrc
+
+    git clone git@github.com:robbyrussell/oh-my-zsh.git .oh-my-zsh
+
+    echo "done.  You need to re-open terminal to activate."
+else
+    echo "Install failed."
+fi
+
+exit 0

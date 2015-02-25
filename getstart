@@ -33,84 +33,53 @@ install_git() {
     esac
 }
 
-install_zsh_in_debian_based() {
-    status=$(dpkg-query -W -f='${Status}\n' zsh)
-    if [ "$status" == "install ok installed"]; then
-        echo "zsh is installed."
-    else
-        sudo apt-get install -y zsh
-    fi
-}
-
-install_zsh_in_arch() {
-    sudo pacman -Syu zsh
-}
-
-install_zsh() {
-    echo "install zsh"
-    case $ID in
-        ubuntu|debian|raspbian)
-            install_zsh_in_debian_based
-            ;;
-        arch)
-            install_zsh_in_arch
-            ;;
-    esac
-}
-
 install_pyenv() {
     git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
 }
 
-install_packages_in_debian_based() {
-    echo "deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" \
-        | sudo tee /etc/apt/sources.list.d/ > /dev/null
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 835AB0E3
-
-    sudo apt-get -q update
-    sudo apt-get install -y gcin git-cola cscope ctags gawk build-essential vim parcellite terminator
-}
-
-install_packages() {
-    echo "install zsh"
-    case $ID in
-        ubuntu|debian|raspbian)
-            install_packages_in_debian_based
-            ;;
-        arch)
-            echo "Not implemented."
-            ;;
-    esac
-}
-
 # Main
-cd $HOME
+main() {
+    cd $HOME
 
-GIT=$(which git)
-if [ -z "$GIT" ]; then
-    install_git
-fi
-ZSH=$(which zsh)
-if [ -z "$ZSH" ]; then
-    install_zsh
-fi
+    GIT=$(which git)
+    if [ -z "$GIT" ]; then
+        install_git
+    fi
 
-git clone https://github.com/elleryq/oh-my-home.git .oh-my-home
+    OH_MY_HOME=$HOME/.oh-my-home
+    git clone https://github.com/elleryq/oh-my-home.git $OH_MY_HOME
 
-OH_MY_HOME=$HOME/.oh-my-home
-if [ -d $OH_MY_HOME ]; then
-    ln -s $OH_MY_HOME/zshenv $HOME/.zshenv
-    ln -s $OH_MY_HOME/zshrc $HOME/.zshrc
+    if [ -d $OH_MY_HOME ]; then
+        # 
+        if [ -d "$OH_MY_HOME/distro/$ID_LIKE" ]; then
+            . $OH_MY_HOME/distro/$ID_LIKE
+        fi
+        # partial 
+        if [ -d "$OH_MY_HOME/distro/$ID" ]; then
+            . $OH_MY_HOME/distro/$ID
+        fi
 
-    git clone https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh
-else
-    echo "Install failed."
-    exit -1
-fi
+        ZSH=$(which zsh)
+        if [ -z "$ZSH" ]; then
+            echo "install zsh"
+            install_zsh
+        fi
 
-install_pyenv
-install_packages
+        ln -s $OH_MY_HOME/zshenv $HOME/.zshenv
+        ln -s $OH_MY_HOME/zshrc $HOME/.zshrc
 
-echo "done.  You need to re-open terminal to activate."
+        git clone https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh
+    else
+        echo "Cannot 'get oh-my-home', install failed."
+        exit -1
+    fi
+
+    install_pyenv
+    install_packages
+
+    echo "done.  You need to re-open terminal to activate."
+}
+
+main
 
 exit 0

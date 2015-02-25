@@ -1,0 +1,18 @@
+install_zsh() {
+    status=$(dpkg-query -W -f='${Status}\n' zsh)
+    if [ "$status" == "install ok installed"]; then
+        echo "zsh is installed."
+    else
+        sudo apt-get install -y zsh
+    fi
+}
+
+install_packages() {
+    echo "deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" \
+        | sudo tee /etc/apt/sources.list.d/ > /dev/null
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 835AB0E3
+
+    sudo apt-get -q update
+    sudo apt-get install -y gcin git-cola cscope ctags gawk build-essential vim parcellite terminator
+}
+

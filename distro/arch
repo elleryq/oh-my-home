@@ -1,0 +1,7 @@
+install_zsh() {
+    sudo pacman -Syu zsh
+}
+
+install_packages() {
+    echo "Not implemented."
+}

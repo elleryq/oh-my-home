@@ -43,6 +43,26 @@ install_pyenv() {
     fi
 }
 
+install_exvim() {
+    EXVIM="$HOME/exvim"
+    if [ -d $EXVIM ]; then
+        rm -rf $EXVIM
+    fi
+    for slink in $HOME/.vim $HOME/.vimrc $HOME/.vimrc.local $HOME/.vimrc.plugins $HOME/.vimrc.plugins.local ; do
+        [ -e $slink ] && rm -f $slink
+    done
+
+    git clone https://github.com/elleryq/exvim.git $HOME/exvim
+
+    for slink in .vim .vimrc .vimrc.local .vimrc.plugins .vimrc.plugins.local ; do
+        ln -s $EXVIM/$slink $HOME/$slink
+    done
+
+    cd $EXVIM
+    sh unix/install.sh
+    cd $HOME
+}
+
 # Main
 main() {
     cd $HOME
@@ -92,6 +112,7 @@ main() {
 
         install_pyenv
         install_packages
+        install_exvim
 
         echo "done.  You need to re-open terminal to activate."
     else

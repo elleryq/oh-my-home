@@ -10,7 +10,7 @@ The script will install:
  * ctags
  * gawk
  * build-essential
- * vim
+ * vim and my forked exvim
  * gcin
  * parcellite
  * terminator
@@ -21,3 +21,7 @@ After installation, $HOME will contain these files/directories:
  * .pyenv
  * .zshenv
  * .zshrc
+ * exvim
+
+TODO:
+ * consider desktop/server usage.

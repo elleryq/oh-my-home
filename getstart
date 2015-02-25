@@ -34,7 +34,13 @@ install_git() {
 }
 
 install_pyenv() {
-    git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+    if [ -d $HOME/.pyenv ]; then
+        cd $HOME/.pyenv
+        git pull --rebase
+        cd $HOME
+    else
+        git clone https://github.com/yyuu/pyenv.git $HOME/.pyenv
+    fi
 }
 
 # Main
@@ -47,15 +53,21 @@ main() {
     fi
 
     OH_MY_HOME=$HOME/.oh-my-home
-    git clone https://github.com/elleryq/oh-my-home.git $OH_MY_HOME
+    if [ -d $OH_MY_HOME ]; then
+        cd $OH_MY_HOME
+        git pull --rebase
+        cd $HOME
+    else
+        git clone https://github.com/elleryq/oh-my-home.git $OH_MY_HOME
+    fi
 
     if [ -d $OH_MY_HOME ]; then
         # 
-        if [ -d "$OH_MY_HOME/distro/$ID_LIKE" ]; then
+        if [ -e "$OH_MY_HOME/distro/$ID_LIKE" ]; then
             . $OH_MY_HOME/distro/$ID_LIKE
         fi
         # partial 
-        if [ -d "$OH_MY_HOME/distro/$ID" ]; then
+        if [ -e "$OH_MY_HOME/distro/$ID" ]; then
             . $OH_MY_HOME/distro/$ID
         fi
 
@@ -65,19 +77,27 @@ main() {
             install_zsh
         fi
 
+        rm -f $HOME/.zshenv
         ln -s $OH_MY_HOME/zshenv $HOME/.zshenv
+        rm -f $HOME/.zshrc
         ln -s $OH_MY_HOME/zshrc $HOME/.zshrc
 
-        git clone https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh
+        if [ -d $HOME/.oh-my-zsh ]; then
+            cd $HOME/.oh-my-zsh
+            git pull --rebase
+            cd $HOME
+        else
+            git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+        fi
+
+        install_pyenv
+        install_packages
+
+        echo "done.  You need to re-open terminal to activate."
     else
         echo "Cannot 'get oh-my-home', install failed."
         exit -1
     fi
-
-    install_pyenv
-    install_packages
-
-    echo "done.  You need to re-open terminal to activate."
 }
 
 main

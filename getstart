@@ -82,11 +82,11 @@ main() {
     fi
 
     if [ -d $OH_MY_HOME ]; then
-        # 
+        # According distro to include scripts.
         if [ -e "$OH_MY_HOME/distro/$ID_LIKE" ]; then
             . $OH_MY_HOME/distro/$ID_LIKE
         fi
-        # partial 
+        # partial
         if [ -e "$OH_MY_HOME/distro/$ID" ]; then
             . $OH_MY_HOME/distro/$ID
         fi
@@ -109,6 +109,9 @@ main() {
         else
             git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
         fi
+
+        rm -f $HOME/.tmux.conf
+        ln -s $OH_MY_HOME/tmux.conf $HOME/.tmux.conf
 
         install_pyenv
         install_packages

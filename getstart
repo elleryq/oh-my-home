@@ -8,6 +8,13 @@ else
     exit -1
 fi
 
+install_gcin_in_debian_based() {
+    # add gcin
+    echo "deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" > /tmp/gcin.list
+    sudo mv /tmp/gcin.list /etc/apt/sources.list.d/
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 835AB0E3
+}
+
 install_git_in_debian_based() {
     status=$(dpkg-query -W -f='${Status}\n' git)
     if [ "$status" == "install ok installed"]; then
@@ -15,6 +22,18 @@ install_git_in_debian_based() {
     else
         sudo apt-get install -y git
     fi
+}
+
+install_gcin() {
+    echo "install gcin"
+    case $ID in
+        ubuntu|debian)
+            install_gcin_in_debian_based
+            ;;
+        arch)
+            echo "Not implemented."
+            ;;
+    esac
 }
 
 install_git_in_arch() {

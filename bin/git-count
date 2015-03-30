@@ -1,3 +1,0 @@
-#!/bin/bash
-source ~/python-envs/pytools/bin/activate
-exec ~/python-envs/pytools/bin/git-count $@

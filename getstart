@@ -17,7 +17,7 @@ install_gcin_in_debian_based() {
 
 install_git_in_debian_based() {
     status=$(dpkg-query -W -f='${Status}\n' git)
-    if [ "$status" == "install ok installed"]; then
+    if [ "$status" == "install ok installed" ]; then
         echo "git is installed."
     else
         sudo apt-get install -y git
@@ -73,9 +73,10 @@ install_exvim() {
 
     git clone https://github.com/elleryq/exvim.git $HOME/exvim
 
-    for slink in .vim .vimrc .vimrc.local .vimrc.plugins .vimrc.plugins.local ; do
+    for slink in .vimrc .vimrc.local .vimrc.plugins .vimrc.plugins.local ; do
         ln -s $EXVIM/$slink $HOME/$slink
     done
+    ln -s $EXVIM/vimfiles $HOME/.vim
 
     cd $EXVIM
     sh unix/install.sh

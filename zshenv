@@ -7,6 +7,10 @@
 #if [ -d "$HOME/bin" ] ; then
 #    export PATH="$HOME/bin:$PATH"
 #fi
+PRIVATE_USER_BIN_EXISTED=$(python -c "import os;print '/home/ellery/bin' in os.environ['PATH'].split(':')")
+if [ "$PRIVATE_USER_BIN_EXISTED" = "False" ]; then
+    export PATH="$HOME/bin:$PATH"
+fi
 
 # For NodeJS
 export LOCAL_PATH="$HOME/.local"

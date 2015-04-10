@@ -14,7 +14,10 @@ if [ -d "$HOME/bin" ] ; then
     fi
 fi
 
-# For NodeJS
+# For NVM/NodeJS
+export NVM_DIR="/home/ellery/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 export LOCAL_PATH="$HOME/.local"
 export MANPATH="$LOCAL_PATH/share/man:$MANPATH"
 export NODE_PATH="$LOCAL_PATH/lib/node_modules:$NODE_PATH"

@@ -14,6 +14,11 @@ if [ -d "$HOME/bin" ] ; then
     fi
 fi
 
+# For gcin qt5 immodule
+if [ -z "$QT_IM_MODULE" ]; then
+    export QT_IM_MODULE=gcin
+fi
+
 # For NVM/NodeJS
 export NVM_DIR="/home/ellery/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

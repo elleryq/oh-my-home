@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import os
-from grs import RealtimeTWSE
+from grs import RealtimeTWSE, RealtimeOTC, Stock
 
 
 def getStocksFromConfig():
@@ -23,11 +23,14 @@ def getStocksFromConfig():
     return stocks.split(',')
 
 def getRealtimeStock(stock_no):
+    realtime = {True: RealtimeTWSE, False: RealtimeOTC}
     try:
-        stock = RealtimeTWSE(stock_no)
-        data = stock.data[stock_no]
+        stock = Stock(stock_no)
+        info = realtime[stock._twse](stock_no)
+        data = info.data[stock_no]
         return (data['info']['name'], data['price'])
-    except:
+    except Exception, ex:
+        #print(ex)
         return None
 
 

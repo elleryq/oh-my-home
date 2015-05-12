@@ -3,6 +3,7 @@
 from __future__ import print_function
 import os
 from grs import RealtimeTWSE, RealtimeOTC, Stock
+from grs import RealtimeWeight
 
 
 def getStocksFromConfig():
@@ -35,7 +36,12 @@ def getRealtimeStock(stock_no):
 
 
 def main():
-    #stocks = ['0050', '0051', '2347']
+    realtime_weight = RealtimeWeight()
+    for index, value in realtime_weight.data.items():
+        print("{0} {1}".format(
+            value['info']['name'].encode('utf-8'),
+            value['price']))
+
     stocks = getStocksFromConfig()
     results = [getRealtimeStock(stock_no) for stock_no in stocks]
     for result in results:

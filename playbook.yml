@@ -1,0 +1,35 @@
+- hosts: all
+  tasks:
+    - name: Use latest git
+      sudo: True
+      apt_repository: repo='ppa:git-core/ppa'
+    - name: Install git
+      sudo: True
+      apt: update_cache=yes name={{ item }}
+      with_items:
+        - libcurl4-gnutls-dev
+        - libexpat1-dev
+        - gettext
+        - libssl-dev
+        - build-essential
+        - git
+        - tig
+        - zsh
+    - name: Clone/Pull oh-my-home
+      git: repo=https://github.com/elleryq/oh-my-home.git
+           dest={{ OH_MY_HOME }}
+    - name: setup zsh
+      file: path={{ item.path }} state={{ item.state }}
+      with_items:
+        - { path: "~/.zshenv", state: "absent" }
+        - { path: "~/.zshrc", state: "absent" }
+    - file: src={{ item.src }} dest={{ item.dest }} state={{ item.state }}
+      with_items:
+          - { src: "{{ OH_MY_HOME }}/zshenv", dest: "~/.zshenv", state: "link" }
+          - { src: "{{ OH_MY_HOME }}/zshrc", dest: "~/.zshrc", state: "link" }
+    - git: repo=https://github.com/robbyrussell/oh-my-zsh.git
+           dest={{ OH_MY_ZSH }}
+
+  vars:
+    - OH_MY_HOME: ~/.oh-my-home
+    - OH_MY_ZSH: ~/.oh-my-zsh

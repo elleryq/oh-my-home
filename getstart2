@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Detects which OS and if it is Linux then it will detect which Linux Distribution.
+if [ -e /etc/os-release ]; then
+    . /etc/os-release
+else
+    echo "Unknown Distribution."
+    exit -1
+fi
+
+
+# Main
+main() {
+    if [ -e playbook.yml ]; then
+        cp playbook.yml $HOME
+    fi
+
+    cd $HOME
+
+    curl "https://bootstrap.pypa.io/get-pip.py" | sudo python
+    sudo pip install ansible
+    ansible-playbook playbook.yml -c local -i "localhost,"
+}
+
+main
+
+exit 0

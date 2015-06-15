@@ -87,3 +87,12 @@ alias pipup="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip in
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+###-tns-completion-start-###
+if [ -f /home/ellery/.tnsrc ]; then 
+    source /home/ellery/.tnsrc 
+fi
+###-tns-completion-end-###

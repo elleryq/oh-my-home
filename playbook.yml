@@ -5,7 +5,7 @@
       apt_repository: repo='ppa:git-core/ppa'
     - name: Install git
       sudo: True
-      apt: update_cache=yes name={{ item }}
+      apt: update_cache=yes pkg={{ item }}
       with_items:
         - libcurl4-gnutls-dev
         - libexpat1-dev
@@ -15,6 +15,13 @@
         - git
         - tig
         - zsh
+        - tmux
+        - cscope
+        - ctags
+        - gawk
+        - vim
+        - parcellite
+        - terminator
     - name: Clone/Pull oh-my-home
       git: repo=https://github.com/elleryq/oh-my-home.git
            dest={{ OH_MY_HOME }}
@@ -29,7 +36,35 @@
           - { src: "{{ OH_MY_HOME }}/zshrc", dest: "~/.zshrc", state: "link" }
     - git: repo=https://github.com/robbyrussell/oh-my-zsh.git
            dest={{ OH_MY_ZSH }}
+    - name: Install tmux
+      file: path=~/.tmux.conf state="absent"
+      file: src="{{ OH_MY_HOME }}" dest="~/.tmux.conf" state="link"
+    - name: Install pyenv
+      git: repo=https://github.com/yyuu/pyenv.git
+           dest=~/.pyenv
+    - name: Install gcin
+      sudo: True
+      apt_key: keyserver=keyserver.ubuntu.com id=835AB0E3 state=present
+#    - apt_repository: repo="deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" state=present update_cache=yes
+    - apt_repository: repo="deb http://hyperrate.com/debian eliu release" state=present update_cache=yes
+      sudo: True
+    - apt: pkg=gcin
+      sudo: True
+    - name: Install exvim
+      git: repo=https://github.com/elleryq/exvim.git
+           dest=~/exvim
+    - file: src={{ EXVIM }}/{{ item }} dest=~/{{ item }} state=link
+      with_items:
+          - .vimrc
+          - .vimrc.local
+          - .vimrc.plugins
+          - .vimrc.plugins.local
+    - file: src={{ EXVIM }}/vimfiles dest=~/.vim state=link
+    - command: sh "{{ EXVIM }}/unix/install.sh"
+      args:
+        chdir: "{{ EXVIM }}"
 
   vars:
     - OH_MY_HOME: ~/.oh-my-home
     - OH_MY_ZSH: ~/.oh-my-zsh
+    - EXVIM: ~/exvim

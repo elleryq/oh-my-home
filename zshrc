@@ -55,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 # echo $PATH  # Debug purpose.
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.oh-my-home/bin:$HOME/.local/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions

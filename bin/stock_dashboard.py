@@ -31,16 +31,21 @@ def getRealtimeStock(stock_no):
         data = info.data[stock_no]
         return (data['info']['name'], data['price'])
     except Exception, ex:
+        print("Fail to get realtime information of '{}'".format(
+            stock_no))
         #print(ex)
         return None
 
 
 def main():
-    realtime_weight = RealtimeWeight()
-    for index, value in realtime_weight.data.items():
-        print("{0} {1}".format(
-            value['info']['name'].encode('utf-8'),
-            value['price']))
+    try:
+        realtime_weight = RealtimeWeight()
+        for index, value in realtime_weight.data.items():
+            print("{0} {1}".format(
+                value['info']['name'].encode('utf-8'),
+                value['price']))
+    except KeyError:
+        print("Fail to get realtime weight, skip.")
 
     stocks = getStocksFromConfig()
     results = [getRealtimeStock(stock_no) for stock_no in stocks]

@@ -1,4 +1,6 @@
 - hosts: all
+  roles:
+    - cron-apt
   tasks:
     - name: Use latest git
       sudo: True

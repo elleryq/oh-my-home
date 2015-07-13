@@ -1,0 +1,21 @@
+---
+# tasks file for .
+- name: Install cron-apt
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items:
+    - cron-apt
+    - unattended-upgrades
+- name: Configure cron-apt
+  template: src="{{item.src}}" dest="{{item.dest}}"
+  with_items:
+    - {src: 'action-5-security.j2', dest: '/etc/cron-apt/action.d/5-security'}
+    - {src: 'config-5-security.j2', dest: '/etc/cron-apt/config.d/5-security'}
+    - {src: 'security.list', dest: '/etc/apt/sources.list.d/security.list'}
+- name: Move security repositories from sources.list to sources.list.d/security.list
+  lineinfile: dest=/etc/apt/sources.list regexp=security\.ubuntu\.com state=absent
+
+# cron-apt had installed cron-apt in /etc/cron.d
+#- name: Configure cron
+#  cron: name="cron-apt" weekday="2,4" minute="{{ 59 | random }}" hour="{{ 4 | random }}"
+#        user="root" job="/usr/sbin/cron-apt"
+#        cron_file=ansible_yum-autoupdate

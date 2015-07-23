@@ -88,7 +88,6 @@ alias pipup="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip in
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
 ###-tns-completion-start-###

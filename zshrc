@@ -90,6 +90,8 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# golang GVM
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 if [ ! -d $HOME/.go ]; then
     mkdir -p $HOME/.go
 fi

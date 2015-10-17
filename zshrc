@@ -95,9 +95,12 @@ export PATH="/usr/local/heroku/bin:$PATH"
 if [ ! -d $HOME/.go ]; then
     mkdir -p $HOME/.go
 fi
-export GOROOT=$(go env GOROOT)
-export GOPATH=$HOME/.go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+which go > /dev/null
+if [ $? -eq 0 ]; then
+    export GOROOT=$(go env GOROOT)
+    export GOPATH=$HOME/.go
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
 
 ###-tns-completion-start-###
 if [ -f /home/ellery/.tnsrc ]; then 

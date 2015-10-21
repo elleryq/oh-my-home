@@ -2,6 +2,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import os
+from urllib3.exceptions import HostChangedError
 from grs import RealtimeTWSE, RealtimeOTC, Stock
 from grs import RealtimeWeight
 
@@ -33,7 +34,7 @@ def getRealtimeStock(stock_no):
     except Exception, ex:
         print("Fail to get realtime information of '{}'".format(
             stock_no))
-        #print(ex)
+        print("> " + ex.message)
         return None
 
 
@@ -44,8 +45,12 @@ def main():
             print("{0} {1}".format(
                 value['info']['name'].encode('utf-8'),
                 value['price']))
-    except KeyError:
+    except KeyError, ex:
         print("Fail to get realtime weight, skip.")
+        print("> " + ex.message)
+    except HostChangedError, ex:
+        print("Fail to get realtime weight, skip.")
+        print("> " + ex.message)
 
     stocks = getStocksFromConfig()
     results = [getRealtimeStock(stock_no) for stock_no in stocks]

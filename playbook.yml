@@ -26,6 +26,7 @@
         - terminator
         - meld
         - x-tile
+        - pavucontrol
     - name: Clone/Pull oh-my-home
       git: repo=https://github.com/elleryq/oh-my-home.git
            dest={{ OH_MY_HOME }}

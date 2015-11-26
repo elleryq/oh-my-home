@@ -43,7 +43,7 @@
            dest={{ OH_MY_ZSH }}
     - name: Install tmux
       file: path=~/.tmux.conf state="absent"
-      file: src="{{ OH_MY_HOME }}" dest="~/.tmux.conf" state="link"
+    - file: src="{{ OH_MY_HOME }}/tmux.conf" dest="~/.tmux.conf" state="link"
     - name: Install pyenv
       git: repo=https://github.com/yyuu/pyenv.git
            dest=~/.pyenv
@@ -70,6 +70,6 @@
         chdir: "{{ EXVIM }}"
 
   vars:
-    - OH_MY_HOME: ~/.oh-my-home
-    - OH_MY_ZSH: ~/.oh-my-zsh
-    - EXVIM: ~/exvim
+    - OH_MY_HOME: {{ lookup('env','HOME') }}/.oh-my-home
+    - OH_MY_ZSH: {{ lookup('env','HOME') }}/.oh-my-zsh
+    - EXVIM: {{ lookup('env','HOME') }}/exvim

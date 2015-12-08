@@ -68,6 +68,8 @@
     - command: sh "{{ EXVIM }}/unix/install.sh"
       args:
         chdir: "{{ EXVIM }}"
+    - Set git default editor
+      command: git config --global core.editor vim
 
   vars:
     - OH_MY_HOME: {{ lookup('env','HOME') }}/.oh-my-home

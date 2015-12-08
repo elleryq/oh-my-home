@@ -30,7 +30,7 @@ def getRealtimeStock(stock_no):
         stock = Stock(stock_no)
         info = realtime[stock._twse](stock_no)
         data = info.data[stock_no]
-        return (data['info']['name'], data['price'])
+        return (stock_no, data['info']['name'], data['price'])
     except Exception, ex:
         print("Fail to get realtime information of '{}'".format(
             stock_no))
@@ -57,9 +57,10 @@ def main():
     for result in results:
         if not result:
             continue
-        print("{0} {1}".format(
-            result[0].encode('utf-8'),
-            result[1]))
+        print("{0} {1} {2}".format(
+            result[0],
+            result[1].encode('utf-8'),
+            result[2]))
 
 if __name__ == "__main__":
     main()

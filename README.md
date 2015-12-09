@@ -23,5 +23,11 @@ After installation, $HOME will contain these files/directories:
  * .zshrc
  * exvim
 
+Use ansible:
+```
+sudo add-apt-repository ppa:ansible/ansible
+sudo apt-get update && sudo apt-get install ansible
+```
+
 TODO:
  * consider desktop/server usage.

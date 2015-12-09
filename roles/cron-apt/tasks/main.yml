@@ -1,17 +1,20 @@
 ---
 # tasks file for .
 - name: Install cron-apt
+  sudo: yes
   apt: pkg={{item}} state=present update_cache=yes
   with_items:
     - cron-apt
     - unattended-upgrades
 - name: Configure cron-apt
+  sudo: yes
   template: src="{{item.src}}" dest="{{item.dest}}"
   with_items:
     - {src: 'action-5-security.j2', dest: '/etc/cron-apt/action.d/5-security'}
     - {src: 'config-5-security.j2', dest: '/etc/cron-apt/config.d/5-security'}
     - {src: 'security.list', dest: '/etc/apt/sources.list.d/security.list'}
 - name: Move security repositories from sources.list to sources.list.d/security.list
+  sudo: yes
   lineinfile: dest=/etc/apt/sources.list regexp=security\.ubuntu\.com state=absent
 
 # cron-apt had installed cron-apt in /etc/cron.d

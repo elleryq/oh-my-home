@@ -18,7 +18,9 @@ main() {
     cd $HOME
 
     curl "https://bootstrap.pypa.io/get-pip.py" | sudo python
-    sudo pip install ansible
+    #sudo pip install ansible
+    sudo add-apt-repository ppa:ansible/ansible -y
+    sudo apt-get update && sudo apt-get install ansible
     ansible-playbook playbook.yml -c local -i "localhost,"
 }
 

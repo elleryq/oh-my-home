@@ -45,17 +45,18 @@ export UPDATE_ZSH_DAYS=13
 
 ZSH_CUSTOM=$HOME/.oh-my-home/zsh_custom
 
+export PATH="$HOME/.oh-my-home/bin:$HOME/.local/bin:$PATH"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras github python pylint virtualenv pyenv gnu-utils autojump autopep8 svn sudo tmux django gitignore systemadmin vagrant docker rvm golang fileop laravel5)
+plugins=(git git-extras github python pylint virtualenv virtualenvwrapper pyenv gnu-utils autojump autopep8 svn sudo tmux django gitignore systemadmin vagrant docker rvm golang fileop laravel5)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 # echo $PATH  # Debug purpose.
 
-export PATH="$HOME/.oh-my-home/bin:$HOME/.local/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions

@@ -27,6 +27,7 @@ class MyPrettyPrinter(pprint.PrettyPrinter):
 
 pp = MyPrettyPrinter()
 
+
 def main():
     response = requests.get("http://oldpaper.g0v.ronny.tw/index/json")
     result = json.loads(response.content)
@@ -34,7 +35,13 @@ def main():
         papers = result['data']
         headlines = papers[0]['headlines']
         dt = datetime.fromtimestamp(papers[0]['time'])
-        print('Yesterday headlines {}'.format(dt.strftime('%Y/%m/%d')))
+        if datetime.now().date() == dt.date():
+            day = "Today"
+        else:
+            day = "Yesterday"
+        print('{day} headlines {paper_date}'.format(
+            day=day,
+            paper_date=dt.strftime('%Y/%m/%d')))
         for paper, title in headlines:
             print('  {paper} {title}'.format(
                 paper=paper, title=title).encode('utf-8'))

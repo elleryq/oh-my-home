@@ -113,3 +113,13 @@ fi
 if [ ! -z $(which docker) ]; then
     alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 fi
+
+# Enable AWS CLI auto completion
+# https://gist.github.com/kevingo/1435330959666b773218
+if [ -e /usr/local/bin/aws_zsh_completer.sh ]; then
+    source /usr/local/bin/aws_zsh_completer.sh
+else
+    if [ -e $HOME/.local/bin/aws_zsh_completer.sh ]; then
+        source $HOME/.local/bin/aws_zsh_completer.sh
+    fi
+fi

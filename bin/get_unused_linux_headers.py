@@ -43,7 +43,8 @@ def main():
     for version, pkg in header_versions.items():
         if version not in image_versions:
             results.append(pkg)
-    print(' '.join(results))
+    if results:
+        print(' '.join(results))
 
 
 if __name__ == "__main__":

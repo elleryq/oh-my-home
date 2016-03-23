@@ -32,13 +32,18 @@ def main():
     packages = list(get_all_packages())
     header_pkgs = filter(lambda x: HEADER_PATTERN.match(x), packages)
     image_pkgs = filter(lambda x: IMAGE_PATTERN.match(x), packages)
-    header_versions = map(lambda x: find_group(HEADER_PATTERN, x), header_pkgs)
-    image_versions = map(lambda x: find_group(IMAGE_PATTERN, x), image_pkgs)
-    print(header_pkgs)
-    print(image_pkgs)
+    header_versions = dict(map(
+        lambda x: (find_group(HEADER_PATTERN, x), x),
+        header_pkgs))
+    image_versions = dict(map(
+        lambda x: (find_group(IMAGE_PATTERN, x), x),
+        image_pkgs))
 
-    print(header_versions)
-    print(image_versions)
+    results = []
+    for version, pkg in header_versions.items():
+        if version not in image_versions:
+            results.append(pkg)
+    print(' '.join(results))
 
 
 if __name__ == "__main__":

@@ -27,6 +27,7 @@
         - meld
         - x-tile
         - pavucontrol
+        - language-pack-zh-hant
     - name: Clone/Pull oh-my-home
       git: repo=https://github.com/elleryq/oh-my-home.git
            dest={{ OH_MY_HOME }}
@@ -55,9 +56,10 @@
       sudo: True
     - apt: pkg=gcin
       sudo: True
+    - file: path={{EXVIM}} state=absent
     - name: Install exvim
       git: repo=https://github.com/elleryq/exvim.git
-           dest=~/exvim
+           dest={{EXVIM}}
     - file: src={{ EXVIM }}/{{ item }} dest=~/{{ item }} state=link
       with_items:
           - .vimrc
@@ -65,10 +67,10 @@
           - .vimrc.plugins
           - .vimrc.plugins.local
     - file: src={{ EXVIM }}/vimfiles dest=~/.vim state=link
-    - command: sh "{{ EXVIM }}/unix/install.sh"
+    - shell: sh "{{ EXVIM }}/unix/install.sh"
       args:
         chdir: "{{ EXVIM }}"
-    - command: vim -u .vimrc --cmd "set rtp=./vimfiles,\$VIMRUNTIME,./vimfiles/after" +PluginInstall +qall
+    - shell: vim -u .vimrc --cmd "set rtp=./vimfiles,\$VIMRUNTIME,./vimfiles/after" +PluginInstall +qall
       args:
         chdir: "{{ EXVIM }}"
     - name: Set git default editor

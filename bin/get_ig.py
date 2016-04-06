@@ -6,8 +6,8 @@ from urlparse import urlparse
 from pyquery import PyQuery
 
 
-def main():
-    resp = requests.get(sys.argv[1])
+def get_ig(url):
+    resp = requests.get(url)
     # print(req.content)
     pq = PyQuery(resp.content)
 
@@ -29,6 +29,10 @@ def main():
         for block in resp.iter_content(1024):
             fout.write(block)
 
+
+def main():
+    for url in sys.argv[1:]:
+        get_ig(url)
 
 if __name__ == "__main__":
     main()

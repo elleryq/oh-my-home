@@ -1,6 +1,5 @@
 #!/bin/bash
-sudo apt-get update 
-sudo apt-get upgrade -y --force-yes
-sudo apt-get dist-upgrade -y --force-yes
-sudo apt-get autoclean
-
+sudo apt update && \
+    sudo apt upgrade -y && \
+    sudo apt dist-upgrade -y && \
+    sudo apt autoclean

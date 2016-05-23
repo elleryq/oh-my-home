@@ -28,6 +28,8 @@
         - x-tile
         - pavucontrol
         - language-pack-zh-hant
+    - name: Install beautify_bash
+      get_url: url=http://arachnoid.com/python/python_programs/beautify_bash.py dest=/usr/local/bin/beautify_bash mode=0755
     - name: Clone/Pull oh-my-home
       git: repo=https://github.com/elleryq/oh-my-home.git
            dest={{ OH_MY_HOME }}

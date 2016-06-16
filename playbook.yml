@@ -28,6 +28,10 @@
         - x-tile
         - pavucontrol
         - language-pack-zh-hant
+        - fonts-noto
+        - fonts-noto-cjk
+        - fonts-noto-hinted
+        - fonts-noto-unhinted
     - name: Clone/Pull oh-my-home
       git: repo=https://github.com/elleryq/oh-my-home.git
            dest={{ OH_MY_HOME }}

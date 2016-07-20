@@ -123,3 +123,7 @@ else
         source $HOME/.local/bin/aws_zsh_completer.sh
     fi
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/ellery/.sdkman"
+[[ -s "/home/ellery/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ellery/.sdkman/bin/sdkman-init.sh"

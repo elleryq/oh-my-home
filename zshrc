@@ -110,7 +110,7 @@ fi
 ###-tns-completion-end-###
 
 # Add dockviz
-if [ ! -z $(which docker) ]; then
+if [ ! -z "$(which docker)" ]; then
     alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 fi
 

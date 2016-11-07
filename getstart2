@@ -11,7 +11,7 @@ fi
 
 # Main
 main() {
-    OH_MY_HOME_DIR = "$HOME/.oh-my-home/"
+    OH_MY_HOME_DIR="$HOME/.oh-my-home/"
 
     cd "$HOME"
 

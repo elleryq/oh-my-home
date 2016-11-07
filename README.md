@@ -29,5 +29,12 @@ sudo add-apt-repository ppa:ansible/ansible
 sudo apt-get update && sudo apt-get install ansible
 ```
 
+## Installation
+
+```
+wget https://github.com/elleryq/oh-my-home/raw/master/getstart2 -O - | sh
+```
+
 TODO:
  * consider desktop/server usage.
+

@@ -3,10 +3,10 @@
     - cron-apt
   tasks:
     - name: Use latest git
-      sudo: True
+      become: True
       apt_repository: repo='ppa:git-core/ppa'
     - name: Install git
-      sudo: True
+      become: True
       apt: update_cache=yes pkg={{ item }}
       with_items:
         - libcurl4-gnutls-dev
@@ -34,10 +34,8 @@
         - fonts-noto-hinted
         - fonts-noto-unhinted
     - name: Install beautify_bash
+      become: True
       get_url: url=http://arachnoid.com/python/python_programs/beautify_bash.py dest=/usr/local/bin/beautify_bash mode=0755
-    - name: Clone/Pull oh-my-home
-      git: repo=https://github.com/elleryq/oh-my-home.git
-           dest={{ OH_MY_HOME }}
     - name: setup zsh
       file: path={{ item.path }} state={{ item.state }}
       with_items:
@@ -56,13 +54,13 @@
       git: repo=https://github.com/yyuu/pyenv.git
            dest=~/.pyenv
     - name: Install gcin
-      sudo: True
+      become: True
       apt_key: keyserver=keyserver.ubuntu.com id=835AB0E3 state=present
 #    - apt_repository: repo="deb http://www.csie.nctu.edu.tw/~cp76/gcin/download/debian eliu release" state=present update_cache=yes
     - apt_repository: repo="deb http://hyperrate.com/debian eliu release" state=present update_cache=yes
-      sudo: True
+      become: True
     - apt: pkg=gcin
-      sudo: True
+      become: True
     - file: path={{EXVIM}} state=absent
     - name: Install exvim
       git: repo=https://github.com/elleryq/exvim.git

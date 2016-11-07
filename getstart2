@@ -28,7 +28,7 @@ main() {
         git clone "https://github.com/elleryq/oh-my-home.git" "$OH_MY_HOME_DIR"
     fi
     cd "$OH_MY_HOME_DIR"
-    ansible-playbook playbook.yml -c local -i "localhost,"
+    ansible-playbook playbook.yml -c local -i "localhost," --become
 }
 
 main

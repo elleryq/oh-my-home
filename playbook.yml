@@ -39,20 +39,20 @@
     - name: setup zsh
       file: path={{ item.path }} state={{ item.state }}
       with_items:
-        - { path: "~/.zshenv", state: "absent" }
-        - { path: "~/.zshrc", state: "absent" }
+        - { path: "{{ansible_env.HOME}}/.zshenv", state: "absent" }
+        - { path: "{{ansible_env.HOME}}/.zshrc", state: "absent" }
     - file: src={{ item.src }} dest={{ item.dest }} state={{ item.state }}
       with_items:
-          - { src: "{{ OH_MY_HOME }}/zshenv", dest: "~/.zshenv", state: "link" }
-          - { src: "{{ OH_MY_HOME }}/zshrc", dest: "~/.zshrc", state: "link" }
+          - { src: "{{ OH_MY_HOME }}/zshenv", dest: "{{ansible_env.HOME}}/.zshenv", state: "link" }
+          - { src: "{{ OH_MY_HOME }}/zshrc", dest: "{{ansible_env.HOME}}/.zshrc", state: "link" }
     - git: repo=https://github.com/robbyrussell/oh-my-zsh.git
            dest={{ OH_MY_ZSH }}
     - name: Install tmux
-      file: path=~/.tmux.conf state="absent"
-    - file: src="{{ OH_MY_HOME }}/tmux.conf" dest="~/.tmux.conf" state="link"
+      file: path="{{ansible_env.HOME}}/.tmux.conf" state="absent"
+    - file: src="{{ OH_MY_HOME }}/tmux.conf" dest="{{ansible_env.HOME}}/.tmux.conf" state="link"
     - name: Install pyenv
       git: repo=https://github.com/yyuu/pyenv.git
-           dest=~/.pyenv
+           dest="{{ansible_env.HOME}}/.pyenv"
     - name: Install gcin
       become: True
       apt_key: keyserver=keyserver.ubuntu.com id=835AB0E3 state=present

@@ -61,18 +61,19 @@
       become: True
     - apt: pkg=gcin
       become: True
-    - file: path={{EXVIM}} state=absent
+    - file: path="{{EXVIM}}" state=absent
     - name: Install exvim
       git: repo=https://github.com/elleryq/exvim.git
-           dest={{EXVIM}}
-    - file: src={{ EXVIM }}/{{ item }} dest=~/{{ item }} state=link
+           dest="{{EXVIM}}"
+    - file: src="{{EXVIM}}/{{ item }}" dest="{{ansible_env.HOME}}/{{item}}" state=link
       with_items:
           - .vimrc
           - .vimrc.local
           - .vimrc.plugins
           - .vimrc.plugins.local
-    - file: src={{ EXVIM }}/vimfiles dest=~/.vim state=link
-    - shell: sh "{{ EXVIM }}/unix/install.sh"
+    - file: src="{{EXVIM}}/vimfiles" dest="{{ansible_env.HOME}}/.vim" state=link
+    - name: Install vim plugins
+      shell: sh "{{EXVIM}}/unix/install.sh"
       args:
         chdir: "{{ EXVIM }}"
     - shell: vim -u .vimrc --cmd "set rtp=./vimfiles,\$VIMRUNTIME,./vimfiles/after" +PluginInstall +qall

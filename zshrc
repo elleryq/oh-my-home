@@ -47,6 +47,11 @@ ZSH_CUSTOM=$HOME/.oh-my-home/zsh_custom
 
 export PATH="$HOME/.oh-my-home/bin:$HOME/.local/bin:$PATH"
 
+# WORKON HOME
+if [ -z $WORKON_HOME ]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+fi
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)

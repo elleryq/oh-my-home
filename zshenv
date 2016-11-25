@@ -20,8 +20,8 @@ if [ -z "$QT_IM_MODULE" ]; then
 fi
 
 # For NVM/NodeJS
-export NVM_DIR="/home/ellery/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="/home/ellery/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export LOCAL_PATH="$HOME/.local"
 export MANPATH="$LOCAL_PATH/share/man:$MANPATH"

@@ -116,7 +116,7 @@ fi
 
 # Add dockviz
 if [ ! -z "$(which docker)" ]; then
-    alias dockviz="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
+    alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
 fi
 
 # Enable AWS CLI auto completion

@@ -108,12 +108,6 @@ if [ $? -eq 0 ]; then
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
-###-tns-completion-start-###
-if [ -f /home/ellery/.tnsrc ]; then 
-    source /home/ellery/.tnsrc 
-fi
-###-tns-completion-end-###
-
 # Add dockviz
 if [ ! -z "$(which docker)" ]; then
     alias dockviz="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock nate/dockviz"
@@ -129,6 +123,7 @@ else
     fi
 fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/ellery/.sdkman"
-[[ -s "/home/ellery/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ellery/.sdkman/bin/sdkman-init.sh"
+if [ -e $HOME/.zshrc.local ]; then
+    source "$HOME/.zshrc.local"
+fi
+

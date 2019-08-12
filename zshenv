@@ -8,7 +8,7 @@
 #    export PATH="$HOME/bin:$PATH"
 #fi
 if [ -d "$HOME/bin" ] ; then
-    PRIVATE_USER_BIN_EXISTED=$(python -c "import os;print '$HOME/bin' in os.environ['PATH'].split(':')")
+    PRIVATE_USER_BIN_EXISTED=$(python -c "import os;print('$HOME/bin') in os.environ['PATH'].split(':')")
     if [ "$PRIVATE_USER_BIN_EXISTED" = "False" ]; then
         export PATH="$HOME/bin:$PATH"
     fi

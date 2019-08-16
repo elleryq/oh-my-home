@@ -94,8 +94,6 @@ alias pipup="pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip in
 
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-#export PATH="/usr/local/heroku/bin:$PATH"
-
 # golang GVM
 # [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 if [ ! -d $HOME/.go ]; then
@@ -130,3 +128,12 @@ fi
 
 # added by travis gem
 [ -f /home/ellery/.travis/travis.sh ] && source /home/ellery/.travis/travis.sh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin

@@ -135,5 +135,3 @@ fi
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-# add Pulumi to the PATH
-export PATH=$PATH:$HOME/.pulumi/bin

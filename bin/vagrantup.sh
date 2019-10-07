@@ -9,7 +9,7 @@ set +o pipefail
 
 # Get current installed version
 current_version=$(dpkg-query -W vagrant | awk -F: '{print $2}')
-version=$(curl -s https://www.vagrantup.com/downloads.html | grep "CHANGELOG" downloads.html | grep -o 'v[0-9]\.[0-9]\.[0-9]' | head -n 1| cut -c2-)
+version=$(curl -s https://www.vagrantup.com/downloads.html | grep "CHANGELOG" | grep -o 'v[0-9]\.[0-9]\.[0-9]' | head -n 1| cut -c2-)
 
 if [ "${current_version}" == "${version}" ]; then
     echo "Already latest version: ${version}"

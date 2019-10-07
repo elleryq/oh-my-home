@@ -13,16 +13,21 @@ if [ ! -e "${DOWNLOAD_DIR}" ]; then
 fi
 
 # Get current installed version
-current_version=$(dpkg-query -W vagrant | awk -F: '{print $2}')
-version=$(curl -s https://www.vagrantup.com/downloads.html | grep "CHANGELOG" | grep -o 'v[0-9]\.[0-9]\.[0-9]' | head -n 1| cut -c2-)
+current_version=$(dpkg-query -W polar-bookshelf | awk '{print $2}')
+
+# Get latest version
+GITHUB_RELEASES_JSON=$(mktemp -p "${TMPDIR}" gh_XXXXX)
+curl -s https://api.github.com/repos/burtonator/polar-bookshelf/releases/latest -o ${GITHUB_RELEASES_JSON}
+version=$(jq -r '.name' ${GITHUB_RELEASES_JSON})
+latest_deb_download_url=$(jq -r '.assets | .[] | select(.name | contains(".deb")) | .browser_download_url' ${GITHUB_RELEASES_JSON})
+rm -f "${GITHUB_RELEASES_JSON}"
 
 if [ "${current_version}" == "${version}" ]; then
     echo "Already latest version: ${version}"
     exit -1
 fi
 
-arch=$(uname -m)
-url=https://releases.hashicorp.com/vagrant/${version}/vagrant_${version}_${arch}.deb
+url=${latest_deb_download_url}
 
 # extract the path (if any)
 path="$(echo "${url}" | grep / | cut -d/ -f2-)"

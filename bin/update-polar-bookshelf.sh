@@ -14,6 +14,7 @@ fi
 
 # Get current installed version
 current_version=$(dpkg-query -W polar-bookshelf | awk '{print $2}')
+echo "Current version=${current_version}"
 
 # Get latest version
 GITHUB_RELEASES_JSON=$(mktemp -p "${TMPDIR}" gh_XXXXX)

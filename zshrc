@@ -55,7 +55,7 @@ fi
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-extras github python pylint virtualenv virtualenvwrapper pyenv gnu-utils autojump svn sudo tmux django gitignore systemadmin rvm golang fileop tig)
+plugins=(git git-extras github python pylint virtualenv virtualenvwrapper gnu-utils autojump sudo tmux django gitignore systemadmin rvm golang fileop tig pyenv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -129,9 +129,6 @@ fi
 # added by travis gem
 [ -f /home/ellery/.travis/travis.sh ] && source /home/ellery/.travis/travis.sh
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/ellery/.local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh

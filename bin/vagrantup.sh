@@ -1,11 +1,11 @@
 #!/bin/bash
 
 set +o pipefail
-#if [ -z "${1}" ]; then
-#    echo "Which version?"
-#    exit -1
-#fi
-# version=$1
+if [ -z "${1}" ]; then
+    echo "Which version?"
+    exit -1
+fi
+version=$1
 
 DOWNLOAD_DIR="${HOME}/Downloads"
 if [ ! -e "${DOWNLOAD_DIR}" ]; then
@@ -13,8 +13,8 @@ if [ ! -e "${DOWNLOAD_DIR}" ]; then
 fi
 
 # Get current installed version
-current_version=$(dpkg-query -W vagrant | awk -F: '{print $2}')
-version=$(curl -s https://www.vagrantup.com/downloads.html | grep "CHANGELOG" | grep -o 'v[0-9]\.[0-9]\.[0-9]' | head -n 1| cut -c2-)
+#current_version=$(dpkg-query -W vagrant | awk -F: '{print $2}')
+#version=$(curl -s https://www.vagrantup.com/downloads.html | grep "CHANGELOG" | grep -o 'v[0-9]\.[0-9]\.[0-9]' | head -n 1| cut -c2-)
 
 if [ "${current_version}" == "${version}" ]; then
     echo "Already latest version: ${version}"
